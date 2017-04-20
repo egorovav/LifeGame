@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<GameData>
+  <GameType>Square</GameType>
+  <SquareLifeGameFactory>
+    <FGameWidth>74</FGameWidth>
+    <FGameHeight>74</FGameHeight>
+  </SquareLifeGameFactory>
+  <LifeGame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <MaxAge>0</MaxAge>
+    <MaxNeighbours>3</MaxNeighbours>
+    <MinNeighbours>2</MinNeighbours>
+    <NeighboursForNew>3</NeighboursForNew>
+  </LifeGame>
+  <ArrayOfItemData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ItemData>
+      <Index>904</Index>
+      <Item>
+        <Age>1</Age>
+      </Item>
+    </ItemData>
+    <ItemData>
+      <Index>905</Index>
+      <Item>
+        <Age>1</Age>
+      </Item>
+    </ItemData>
+    <ItemData>
+      <Index>906</Index>
+      <Item>
+        <Age>1</Age>
+      </Item>
+    </ItemData>
+    <ItemData>
+      <Index>980</Index>
+      <Item>
+        <Age>1</Age>
+      </Item>
+    </ItemData>
+    <ItemData>
+      <Index>1053</Index>
+      <Item>
+        <Age>1</Age>
+      </Item>
+    </ItemData>
+  </ArrayOfItemData>
+</GameData>

@@ -1,0 +1,135 @@
+﻿<Window x:Class="LifeWpfClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:model="clr-namespace:LifeWpfClient.ViewModel"
+        Title="Life Game" Height="600" Width="800">
+    <Window.Resources>
+        <model:MainViewModel x:Key="MainViewModel" />
+        <model:MenuViewModel x:Key="MenuViewModel" />
+        <model:GameTypeIntValueConverter x:Key="GameTypeIntConverter" />
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" 
+                        Executed="SaveCommand_Executed" 
+                        CanExecute="SaveCommand_CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="OpenCommand_Executed"
+                        CanExecute="OpenCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20px" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="2"  x:Name="mMain" DataContext="{StaticResource MenuViewModel}">
+            <MenuItem Header="_Game">
+                <MenuItem Header="_Save to File" Command="ApplicationCommands.Save" 
+                          CommandParameter="{StaticResource MainViewModel}" />
+                <MenuItem Header="Save to Storage"></MenuItem>
+                <Separator />
+                <MenuItem Header="_Load from File" Command="ApplicationCommands.Open"
+                          CommandParameter="{StaticResource MainViewModel}"></MenuItem>
+                <MenuItem Header="Load from Storage"></MenuItem>
+                <Separator />
+                <MenuItem Header="Saving Frames" IsCheckable="True" 
+                          DataContext="{StaticResource MainViewModel}" 
+                          IsChecked="{Binding IsSavingFrames}"/>
+                <MenuItem Header="Save To GIF" Click="SaveAsGif_Click" 
+                          DataContext="{StaticResource MainViewModel}"
+                          IsEnabled="{Binding IsSavingFrames}" />
+            </MenuItem>
+            <MenuItem Header="_About" Click="About_Click">
+            </MenuItem>
+        </Menu>
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="gMain" DataContext="{StaticResource MainViewModel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="100px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="40px"/>
+                </Grid.RowDefinitions>
+                <TextBox Name="tbxHeight" Grid.Column="1" Text="{Binding GameHeight}" />
+                <TextBlock TextWrapping="Wrap">Height</TextBlock>
+
+                <TextBox Name="tbxWidth" Grid.Column="1" Grid.Row="1" Text="{Binding GameWidth}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="1">Width</TextBlock>
+
+                <TextBox Name="tbxItemsNum" Grid.Column="1" Grid.Row="2" Text="{Binding StartItemCount}"  />
+                <TextBlock TextWrapping="Wrap" Grid.Row="2">Start items number</TextBlock>
+
+                <ComboBox Name ="cbGameType" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding GameTypes}"
+                  SelectedIndex="{Binding GameType, Converter={StaticResource GameTypeIntConverter}}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="3">Game type</TextBlock>
+
+                <Button Name="btnCreateGame" Grid.ColumnSpan="2" Grid.Row="4" Width="110" Content="Create Game"
+                Command="{Binding CreateGameCommand}" CommandParameter="{Binding}" />
+
+                <TextBox Name="tbxMaxAge" Grid.Column="1" Grid.Row="5" Text="{Binding MaxAge, Mode=TwoWay}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="5">Maximum Age</TextBlock>
+
+                <TextBox Name="tbxMaxNeighbours" Grid.Column="1" Grid.Row="6" Text="{Binding MaxNeighbours, Mode=TwoWay}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="6">Maximum of neighbours</TextBlock>
+
+                <TextBox Name="tbxMinNeighbours" Grid.Column="1" Grid.Row="7" Text="{Binding MinNeighbours, Mode=TwoWay}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="7">Minimum of neighbours</TextBlock>
+
+                <TextBox Name="tbxNeighbours" Grid.Column="1" Grid.Row="8" Text="{Binding NeighboursForNew, Mode=TwoWay}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="8">Neighbours number for new</TextBlock>
+
+                <Button Name="btnStartGame" Grid.Row="9" Content="Start"
+                Command="{Binding RunCommand}" CommandParameter="{Binding}"  />
+                <Button Name="btnStoptGame" Grid.Row="9" Grid.Column="1" Content="Stop" 
+                Command="{Binding StopCommand}" CommandParameter="{Binding}"  />
+
+                <Button Name="btnStep" Grid.Row="10" Content="Step" 
+                Command="{Binding StepCommand}" CommandParameter="{Binding}"/>
+                <Button Name="btnReset" Grid.Row="10" Grid.Column="1" Content="Reset" 
+                Command="{Binding ResetCommand}" CommandParameter="{Binding}"/>
+
+                <TextBox Name="tbxStepCount" IsReadOnly="True" Grid.Column="1" Grid.Row="11" 
+                 Text="{Binding StepCount, Mode=OneWay}" />
+                <TextBlock TextWrapping="Wrap" Grid.Row="11">Step counter</TextBlock>
+
+                <TextBox Name="tbxItemCount" IsReadOnly="True" Grid.Column="1" Grid.Row="12" 
+                 Text="{Binding ItemCount, Mode=OneWay}"/>
+                <TextBlock TextWrapping="Wrap" Grid.Row="12">Item counter</TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Grid.Row="13">Rendering Time (ms)</TextBlock>
+                <TextBox Name="tbxDrawingTime" IsReadOnly="True"  Grid.Column="1" Grid.Row="13" 
+                 Text="{Binding RenderingTime, Mode=OneWay}" />
+                
+                <Button Grid.Row="14" Name="btnIncrementFieldSize" Content="Size++"
+                        Command="{Binding IncrementFieldSize}" CommandParameter="{Binding}" />
+                <Button Grid.Row="14" Grid.Column="1" Name="btnDecrementFieldSize" Content="Size--"
+                        Command="{Binding DecrementFieldSize}" CommandParameter="{Binding}" />
+            </Grid>
+        </ScrollViewer>
+        <ScrollViewer Grid.Column="1" Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <Canvas Name="cField" />
+        </ScrollViewer>
+    </Grid>
+</Window>
