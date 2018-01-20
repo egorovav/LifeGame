@@ -64,7 +64,7 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard x:Name="bsbMouseEnter">
                             <Storyboard x:Name="sbLight">
-                                <DoubleAnimation x:Name="LightAnimation"
+                                <DoubleAnimation x:Name="LightAnimation" RepeatBehavior="Forever"
                                                 Storyboard.TargetName="gsWhite" 
                                                 Storyboard.TargetProperty="Offset" 
                                                 From="0" To="1" Duration="0:0:0.8"/>
